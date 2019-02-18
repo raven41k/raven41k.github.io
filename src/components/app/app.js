@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
 import AppHeader from '../header';
 import TodoList from '../todo-list';
@@ -8,16 +9,12 @@ import ItemAddForm from '../item-add-form';
 import './app.css';
 
 
-export default class App extends Component {
+export class App extends Component {
 
   maxId = 100;
 
   state = {
-    items: [
-      { id: 1, label: 'Drink Coffee', done: false },
-      { id: 2, label: 'Learn React', done: false },
-      { id: 3, label: 'Make Awesome App', done: false }
-    ],
+    items: this.props.items,
     filter: 'all',
   };
 
@@ -110,3 +107,7 @@ export default class App extends Component {
     );
   };
 }
+
+export default connect((state) => ({
+  items: state.items
+}))(App)

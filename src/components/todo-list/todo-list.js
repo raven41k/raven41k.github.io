@@ -1,4 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
 
 import TodoListItem from '../todo-list-item/todo-list-item';
 import { connect } from "react-redux";
@@ -7,21 +15,64 @@ import { toggleTodo } from "../../AC";
 
 import './todo-list.css';
 
-const TodoList = ({ items, toggleTodo }) => {
+const styles = theme => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+    margin:'auto',
+    display:'block'
+  },
+});
 
-  const elements = items.map((item) => {
-    const { id, ...itemProps } = item;
+class TodoList extends React.Component {  
+
+  state = {
+    checked: [0],
+  };
+
+  handleToggle = value => () => {
+    const { checked } = this.state;
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      checked: newChecked,
+    });
+  };
+
+  render() {
+
+    const { classes, items, toggleTodo} = this.props;
+
+    const elements = items.map((item, idx) => {
+      const { id, ...itemProps } = item;
+      return (
+      <TodoListItem
+        key={item.id}
+        { ...itemProps }
+        onClick={() => toggleTodo(item.id)}
+        id={item.id}
+        />
+      );
+    });
+
     return (
-      <li key={id} className="list-group-item">
-        <TodoListItem
-          { ...itemProps }
-          onClick={() => toggleTodo(item.id)}
-          />
-      </li>
-    );
-  });
 
-  return (<ul className="todo-list list-group">{ elements }</ul>);
+    <List className={classes.root}>
+      { elements }
+    </List>
+
+  );
+  }
+
+  
 };
 
 const getVisibleTodos = items => {
@@ -39,4 +90,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TodoList);
+)(withStyles(styles)(TodoList));

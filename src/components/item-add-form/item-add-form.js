@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { addItem } from '../../AC'
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
+
 
 import './item-add-form.css';
 
@@ -28,5 +35,4 @@ const ItemAddForm = ({ dispatch }) => {
 
 
 
-
-export default connect()(ItemAddForm)
+export default withStyles(styles)(ItemAddForm);

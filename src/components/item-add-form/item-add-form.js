@@ -1,22 +1,45 @@
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { addItem } from '../../AC'
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
+import Icon from '@material-ui/core/Icon';
 
 
 import './item-add-form.css';
 
-const ItemAddForm = ({ dispatch }) => {
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginTop:"35px",
+    marginBottom:"35px",
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+    fontSize: '18px'
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 200,
+  },
+});
+
+const ItemAddForm = ({ dispatch, classes }) => {
   let input
 
   return (
     <div>
-      <form onSubmit={e => {
+      <form className={classes.container} onSubmit={e => {
         e.preventDefault()
         if (!input.value.trim()) {
           return
@@ -24,10 +47,17 @@ const ItemAddForm = ({ dispatch }) => {
         dispatch(addItem(input.value))
         input.value = ''
       }}>
-        <input required ref={node => input = node} />
-        <button type="submit">
-          Add Todo
-        </button>
+        <TextField
+         required 
+         label="Name"
+         className={classes.textField}
+         inputProps={{
+          ref: (node) => { input = node },
+        }}
+          />
+        <Fab type="submit" color="primary" size="medium" className={classes.button}>
+          <AddIcon />
+        </Fab>
       </form>
     </div>
   )
@@ -35,4 +65,4 @@ const ItemAddForm = ({ dispatch }) => {
 
 
 
-export default withStyles(styles)(ItemAddForm);
+export default connect()(withStyles(styles)(ItemAddForm));

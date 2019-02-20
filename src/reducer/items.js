@@ -6,7 +6,16 @@ export default (itemsState = defaultItems, action) => {
 
   switch (type) {
     case DELETE_ARTICLE:
-      return []
+      return [
+        ...itemsState,
+        {
+          id: action.id,
+          label: action.label,
+          done: false
+        }
+      ]
+      
+
 
     default:
       return itemsState

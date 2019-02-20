@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { addComment } from '../../AC'
 
 import './item-add-form.css';
 
-export default class ItemAddForm extends Component {
+class ItemAddForm extends Component {
 
   state = {
     label: ''
@@ -18,8 +20,7 @@ export default class ItemAddForm extends Component {
     e.preventDefault();
     const { label } = this.state;
     this.setState({ label: '' });
-    const cb = this.props.onItemAdded;
-    cb(label);
+    this.props.addComment(this.state.label)
   };
 
   render() {
@@ -38,3 +39,17 @@ export default class ItemAddForm extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    comment: state.comment
+  };
+};
+
+
+export default connect(
+  mapStateToProps,
+  (dispatch) => ({
+    addComment: (label) => dispatch(addComment(label))
+  })
+)(ItemAddForm)

@@ -101,8 +101,7 @@ export class App extends Component {
           onToggleDone={this.onToggleDone}
           onDelete={this.onDelete} />
 
-        <ItemAddForm
-          onItemAdded={this.onItemAdded} />
+        <ItemAddForm />
       </div>
     );
   };
@@ -110,4 +109,4 @@ export class App extends Component {
 
 export default connect((state) => ({
   items: state.items
-}))(App)
+}))(App)  

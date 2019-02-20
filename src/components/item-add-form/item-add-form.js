@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { addComment } from '../../AC'
+import { addItem } from '../../AC'
 
 import './item-add-form.css';
 
@@ -14,10 +14,10 @@ const ItemAddForm = ({ dispatch }) => {
         if (!input.value.trim()) {
           return
         }
-        dispatch(addComment(input.value))
+        dispatch(addItem(input.value))
         input.value = ''
       }}>
-        <input ref={node => input = node} />
+        <input required ref={node => input = node} />
         <button type="submit">
           Add Todo
         </button>

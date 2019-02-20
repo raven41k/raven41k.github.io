@@ -20,15 +20,9 @@ const TodoListItem = ({ done,
         style={{
           textDecoration: done ? 'line-through' : 'none'
         }}
-        >{label}
-        
+        >
+        {label}
         </span>
-
-      {/* <button type="button"
-              className=""
-              onClick={onDelete}>
-        <i className="fa fa-trash-o"></i>
-      </button> */}
     </span>
   );
 };

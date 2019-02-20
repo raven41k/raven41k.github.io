@@ -2,12 +2,12 @@ import React from 'react';
 
 import TodoListItem from '../todo-list-item/todo-list-item';
 import { connect } from "react-redux";
-import { addComment } from "../../AC";
+import { addItem } from "../../AC";
 import { toggleTodo } from "../../AC";
 
 import './todo-list.css';
 
-const TodoList = ({ items, toggleTodo, onToggleDone, onDelete }) => {
+const TodoList = ({ items, toggleTodo }) => {
 
   const elements = items.map((item) => {
     const { id, ...itemProps } = item;

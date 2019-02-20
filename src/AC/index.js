@@ -1,10 +1,14 @@
-import { DELETE_ARTICLE } from '../constants'
+import { ADD_ITEM, TOGGLE_TODO } from '../constants'
 let nextTodoId = 0
 export function addComment(label) {
    return {
-     type: DELETE_ARTICLE,
+     type: ADD_ITEM,
      id: nextTodoId++,
-     label,
-     done: true
+     label
    }
  }
+
+ export const toggleTodo = id => ({
+  type: TOGGLE_TODO,
+  id
+});

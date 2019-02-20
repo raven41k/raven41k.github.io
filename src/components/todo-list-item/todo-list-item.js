@@ -3,7 +3,7 @@ import React from 'react';
 import './todo-list-item.css';
 
 const TodoListItem = ({ done,
-      label, onToggleDone, onDelete }) => {
+      label, onClick }) => {
 
   let classNames = 'todo-list-item';
 
@@ -16,7 +16,13 @@ const TodoListItem = ({ done,
     <span className={classNames}>
       <span
         className="todo-list-item-label"
-        onClick={onToggleDone}>{label}</span>
+        onClick={onClick}
+        style={{
+          textDecoration: done ? 'line-through' : 'none'
+        }}
+        >{label}
+        
+        </span>
 
       {/* <button type="button"
               className=""

@@ -1,10 +1,13 @@
 import React from 'react';
 
 import TodoListItem from '../todo-list-item/todo-list-item';
+import { connect } from "react-redux";
+import { addComment } from "../../AC";
+import { toggleTodo } from "../../AC";
 
 import './todo-list.css';
 
-const TodoList = ({ items, onToggleImportant, onToggleDone, onDelete }) => {
+const TodoList = ({ items, toggleTodo, onToggleDone, onDelete }) => {
 
   const elements = items.map((item) => {
     const { id, ...itemProps } = item;
@@ -12,8 +15,8 @@ const TodoList = ({ items, onToggleImportant, onToggleDone, onDelete }) => {
       <li key={id} className="list-group-item">
         <TodoListItem
           { ...itemProps }
-          onToggleDone={ () => onToggleDone(id) }
-          onDelete={ () => onDelete(id) } />
+          onClick={() => toggleTodo(item.id)}
+          />
       </li>
     );
   });
@@ -21,4 +24,19 @@ const TodoList = ({ items, onToggleImportant, onToggleDone, onDelete }) => {
   return (<ul className="todo-list list-group">{ elements }</ul>);
 };
 
-export default TodoList;
+const getVisibleTodos = items => {
+  return items;
+};
+
+const mapStateToProps = state => ({
+  items: getVisibleTodos(state.items)
+}); 
+
+const mapDispatchToProps = dispatch => ({
+  toggleTodo: id => dispatch(toggleTodo(id))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoList);

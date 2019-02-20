@@ -4,52 +4,29 @@ import { addComment } from '../../AC'
 
 import './item-add-form.css';
 
-class ItemAddForm extends Component {
+const ItemAddForm = ({ dispatch }) => {
+  let input
 
-  state = {
-    label: ''
-  };
-
-  onLabelChange = (e) => {
-    this.setState({
-      label: e.target.value
-    })
-  };
-
-  onSubmit = (e) => {
-    e.preventDefault();
-    const { label } = this.state;
-    this.setState({ label: '' });
-    this.props.addComment(this.state.label)
-  };
-
-  render() {
-    return (
-      <form
-        onSubmit={this.onSubmit}>
-
-        <input type="text"
-               value={this.state.label}
-               onChange={this.onLabelChange}
-               placeholder="What needs to be done?" />
-
-        <button type="submit"
-                >Add</button>
+  return (
+    <div>
+      <form onSubmit={e => {
+        e.preventDefault()
+        if (!input.value.trim()) {
+          return
+        }
+        dispatch(addComment(input.value))
+        input.value = ''
+      }}>
+        <input ref={node => input = node} />
+        <button type="submit">
+          Add Todo
+        </button>
       </form>
-    );
-  }
+    </div>
+  )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    comment: state.comment
-  };
-};
 
 
-export default connect(
-  mapStateToProps,
-  (dispatch) => ({
-    addComment: (label) => dispatch(addComment(label))
-  })
-)(ItemAddForm)
+
+export default connect()(ItemAddForm)

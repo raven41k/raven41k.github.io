@@ -1,7 +1,5 @@
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { addItem } from '../../AC'
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -34,35 +32,53 @@ const styles = theme => ({
   },
 });
 
-const ItemAddForm = ({ dispatch, classes }) => {
-  let input
+class ItemAddForm extends Component {
 
-  return (
-    <div>
-      <form className={classes.container} onSubmit={e => {
-        e.preventDefault()
-        if (!input.value.trim()) {
-          return
-        }
-        dispatch(addItem(input.value))
-        input.value = ''
-      }}>
-        <TextField
-         required 
-         label="Name"
-         className={classes.textField}
-         inputProps={{
-          ref: (node) => { input = node },
-        }}
-          />
-        <Fab type="submit" color="primary" size="medium" className={classes.button}>
-          <AddIcon />
-        </Fab>
-      </form>
-    </div>
-  )
+  state = {
+    label: '',
+  };
+
+  onLabelChange = (e) => {
+    this.setState({
+      label: e.target.value
+    })
+  };
+  
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    const { label } = this.state;
+    this.setState({ label: '' });
+    if (!label) {
+      return false;
+    }
+    const cb = this.props.onItemAdded || (() => {});
+    cb(label);
+  };
+
+  render() {
+    const {classes} = this.props
+    return (
+      <div>
+        <form 
+          className="bottom-panel d-flex"
+          onSubmit={this.onSubmit}>
+          <TextField
+            className="form-control new-todo-label"
+            value={this.state.label}
+            onChange={this.onLabelChange}
+            placeholder="What needs to be done?"
+            />
+          <Fab type="submit" color="primary" size="medium" className={classes.button}>
+            <AddIcon />
+          </Fab>
+        </form>
+      </div>
+    )
+  }
+  
 }
 
 
 
-export default connect()(withStyles(styles)(ItemAddForm));
+export default withStyles(styles)(ItemAddForm);

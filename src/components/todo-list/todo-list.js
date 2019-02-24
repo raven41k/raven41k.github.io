@@ -10,7 +10,6 @@ import IconButton from '@material-ui/core/IconButton';
 
 import TodoListItem from '../todo-list-item/todo-list-item';
 
-import './todo-list.css';
 
 const styles = theme => ({
   root: {
@@ -24,7 +23,6 @@ const styles = theme => ({
 
 class TodoList extends React.Component {  
 
-
   render() {
 
     const { items, onToggleImportant, onToggleDone, onDelete, classes } = this.props;
@@ -32,12 +30,14 @@ class TodoList extends React.Component {
     const elements = items.map((item) => {
       const { id, ...itemProps } = item;
       return (
-        <li key={id} className="list-group-item">
+        <li key={id} >
+
           <TodoListItem
             { ...itemProps }
             onToggleImportant={ () => onToggleImportant(id) }
             onToggleDone={ () => onToggleDone(id) }
             onDelete={ () => onDelete(id) } 
+            label={item.label}
             id={id} />
         </li>
       );

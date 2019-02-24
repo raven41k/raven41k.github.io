@@ -14,10 +14,12 @@ export default class App extends Component {
 
   state = {
     items: [
-      { id: 1, label: 'Drink Coffee', done: false },
-      { id: 2, label: 'Learn React', done:false },
-      { id: 3, label: 'Make Awesome App', done: false }
+      { id: 1, label: 'jQuery', done: false },
+      { id: 2, label: 'React', done:false },
+      { id: 3, label: 'Angular', done: false }
     ],
+    isEditing: false,
+    editTodo: {}
   };
 
   onItemAdded = (label) => {
@@ -64,7 +66,6 @@ export default class App extends Component {
     return {
       id: ++this.maxId,
       label,
-      important: false,
       done: false
     };
   }

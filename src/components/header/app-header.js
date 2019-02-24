@@ -1,15 +1,20 @@
 import React from 'react';
-import './app-header.css';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
-const AppHeader = ({toDo, done}) => {
+const styles = theme => ({
+  header: {
+    textAlign: 'center'
+  },
+});
+
+const AppHeader = ({toDo, done, classes}) => {
   return (
-    <div className="app-header d-flex">
-      <Typography>Todo List</Typography>
-      <Typography>{toDo} more to do, {done} done</Typography>
+    <div className={classes.header}>
+      <Typography variant="h3" gutterBottom>Todo List</Typography>
+      <Typography variant="h5" gutterBottom>{toDo} more to do, {done} done</Typography>
     </div>
   );
 };
 
-export default withStyles()(AppHeader)
+export default withStyles(styles)(AppHeader)

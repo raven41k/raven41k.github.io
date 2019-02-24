@@ -8,8 +8,6 @@ import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 
 
-import './item-add-form.css';
-
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -59,15 +57,14 @@ class ItemAddForm extends Component {
   render() {
     const {classes} = this.props
     return (
-      <div>
+      <div className={classes.container}>
         <form 
-          className="bottom-panel d-flex"
-          onSubmit={this.onSubmit}>
+          onSubmit={this.onSubmit}
+          >
           <TextField
-            className="form-control new-todo-label"
             value={this.state.label}
             onChange={this.onLabelChange}
-            placeholder="What needs to be done?"
+            placeholder="please add a name"
             />
           <Fab type="submit" color="primary" size="medium" className={classes.button}>
             <AddIcon />

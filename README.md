@@ -12,7 +12,7 @@ $ npm start
 
 #### Demo
 
-See [https://raven41k.github.io/build](https://raven41k.github.io/build)
+See [https://raven41k.github.io/demo](https://raven41k.github.io/demo)
 
 ### Authors
 

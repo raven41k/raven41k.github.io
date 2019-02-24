@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-
-
 import AppHeader from '../header';
 import TodoList from '../todo-list';
 import ItemAddForm from '../item-add-form';
 
-import './app.css';
-
 
 export default class App extends Component {
-
-  maxId = 100;
 
   state = {
     items: [
@@ -18,8 +12,6 @@ export default class App extends Component {
       { id: 2, label: 'React', done:false },
       { id: 3, label: 'Angular', done: false }
     ],
-    isEditing: false,
-    editTodo: {}
   };
 
   onItemAdded = (label) => {
@@ -64,7 +56,7 @@ export default class App extends Component {
 
   createItem(label) {
     return {
-      id: ++this.maxId,
+      id: (Date.now() + Math.random()).toString(),
       label,
       done: false
     };
@@ -77,7 +69,7 @@ export default class App extends Component {
     const visibleItems = items;
 
     return (
-      <div className="todo-app">
+      <div>
         <AppHeader toDo={toDoCount} done={doneCount}/>
 
         <TodoList

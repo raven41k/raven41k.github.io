@@ -1,21 +1,38 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
+import Fab from '@material-ui/core/Fab';
+import TextField from '@material-ui/core/TextField';
+import Icon from '@material-ui/core/Icon';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
 
-
-import './todo-list-item.css';
 
 const styles = theme => ({
   root: {
     width: '100%',
-    maxWidth: 360,
+    maxWidth: 460,
     backgroundColor: theme.palette.background.paper,
+    display: 'flex'
   },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+    fontSize: '18px'
+  },
+  fab: {
+    margin: theme.spacing.unit,
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  text: {
+    maxWidth: '80%',
+    wordBreak: 'break-all'
+  }
 });
 
 class TodoListItem extends React.Component {
@@ -73,68 +90,64 @@ class TodoListItem extends React.Component {
 
   render() {
 
-    const { edit, done,
-      label, onToggleImportant, onToggleDone, onDelete, onClick, id} = this.props;
+    const { classes, done, onToggleDone, onDelete, id} = this.props;
       
     const viewStyle = {};
     const editStyle = {};
     this.state.editing ? viewStyle.display = 'none' : editStyle.display = 'none'  
 
-    let classNames = 'todo-list-item';
-
-    if (done) {
-      classNames += ' done';
-    }
     return (
       <div>
-      <div style={viewStyle} >
-      <div onClick={this.handleToggle(id)}>
-      <ListItem key={id} role={undefined} dense button onClick={onToggleDone}>{this.state.changeText}
-        <div className={classNames}>
-          <ListItemText 
-      
-            style={{
-              textDecoration: done ? 'line-through' : 'none'
-            }}
-            />
-        </div>
-        <Checkbox
-          checked={this.state.checked.indexOf(id) !== -1}
-          tabIndex={-1}
-          disableRipple
-        />
-        </ListItem>
-        <button type="button"
-              className="btn btn-outline-danger btn-sm float-right"
+        <div style={viewStyle} className={classes.root}>
+          <div style={{width: '60%'}} onClick={this.handleToggle(id)}>
+            <ListItem key={id} role={undefined} dense button onClick={onToggleDone}>
+              <Checkbox
+                checked={this.state.checked.indexOf(id) !== -1}
+                tabIndex={-1}
+                disableRipple
+              />
+              <Typography variant="h3" gutterBottom className={classes.text}>
+                {this.state.changeText}
+              </Typography>
+            </ListItem>
+          </div>
+          <div style={{width: '40%', textAlign: 'right'}}>
+            <Fab 
+              className={classes.fab} 
+              size="small"
               onClick={onDelete}>
-                delete
-        </button>
-        <button
-          onClick={this.handleEditing}
-        >
-        edit
-        </button>
+              <DeleteIcon />
+            </Fab>
+            <Fab
+              color="secondary" 
+              aria-label="Edit" 
+              className={classes.fab} 
+              onClick={this.handleEditing}
+              size="small"
+            >
+              <Icon>edit_icon</Icon>
+            </Fab>
+          </div>
         
-
-
-      </div>
+        </div>
+        <div style={editStyle}>
       
-      </div>
-      <div style={editStyle}>
-    
-        <input 
-          value={this.state.changeText}
-          onKeyDown={this.handleEditingDoneKeydown}
-          onChange={this.handleEditingChange}
-          
-        />
-        <button
-          onClick={this.handleEditingDoneClick}
-        >
-          edit
-        </button>
+          <TextField 
+            value={this.state.changeText}
+            onKeyDown={this.handleEditingDoneKeydown}
+            onChange={this.handleEditingChange}
+            className={classes.textField}
+      
+          />
+          <Button 
+            color="secondary" 
+            className={classes.button}        
+            onClick={this.handleEditingDoneClick}
+          >
+            rename
+          </Button>
 
-      </div>
+        </div>
 
       
       </div>

@@ -1,12 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
 
 import TodoListItem from '../todo-list-item/todo-list-item';
 
@@ -19,6 +13,9 @@ const styles = theme => ({
     margin:'auto',
     display:'block'
   },
+  list: {
+    marginBottom: '25px'
+  }
 });
 
 class TodoList extends React.Component {  
@@ -30,7 +27,7 @@ class TodoList extends React.Component {
     const elements = items.map((item) => {
       const { id, ...itemProps } = item;
       return (
-        <li key={id} >
+        <li key={id} className={classes.list}>
 
           <TodoListItem
             { ...itemProps }
